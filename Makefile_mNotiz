@@ -1,0 +1,53 @@
+# Trình biên dịch sẽ được sử dụng, ở đây là cc (thường là gcc)
+COMPILER = 	cc
+
+# Cờ biên dịch:
+# -Wall: bật tất cả các cảnh báo thông thường
+# -Wextra: bật thêm các cảnh báo bổ sung
+# -Werror: biến cảnh báo thành lỗi (bắt buộc sửa)
+CFLAGS = 	-Wall -Wextra -Werror
+
+# Tên của thư viện đầu ra (output), đây là thư viện tĩnh
+NAME = 		libft.a
+
+# Danh sách các file mã nguồn (.c)
+SRCS =		ft_isalpha.c ft_memcpy.c ft_strrchr.c ft_isdigit.c ft_memmove.c\
+			ft_strncmp.c ft_isalnum.c ft_strlcpy.c ft_memchr.c ft_isascii.c\
+			ft_strlcat.c ft_memcmp.c ft_isprint.c ft_toupper.c ft_strnstr.c\
+			ft_strlen.c ft_tolower.c ft_atoi.c ft_memset.c ft_strchr.c ft_bzero.c\
+			ft_calloc.c ft_strdup.c\
+			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c\
+			ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c\
+			ft_putendl_fd.c ft_putnbr_fd.c\
+
+# Chuyển tất cả tên file .c sang .o để biên dịch
+# Ví dụ: ft_isalpha.c ➜ ft_isalpha.o
+OBJS = $(SRCS:.c=.o)
+
+# Mục tiêu mặc định khi gõ "make" là build ra libft.a
+all: $(NAME)
+
+# Tạo file libft.a từ danh sách file .o
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
+# r: replace, c: create, s: index table (tạo thư viện tĩnh)
+
+# Rule mẫu: biên dịch mỗi file .c thành .o
+# $< là file đầu vào (.c), $@ là file đầu ra (.o)
+%.o: %.c
+	$(COMPILER) $(CFLAGS) -c $< -o $@
+
+# Xóa tất cả file .o (file trung gian)
+clean:
+	rm -f $(OBJS)
+
+# Xóa cả file .o và file thư viện .a (làm sạch hoàn toàn)
+fclean: clean
+	rm -f $(NAME)
+
+# Gọi lại từ đầu: xóa toàn bộ và build lại
+re: fclean all
+
+# Khai báo các target này là "phi file" (không phải file thật)
+# Tránh lỗi nếu trong thư mục có file tên là "clean" hay "all"
+.PHONY: all clean fclean re
