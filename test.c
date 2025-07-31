@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 01:39:49 by phly              #+#    #+#             */
-/*   Updated: 2025/07/30 16:53:54 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/01 01:43:19 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,21 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-
-void ft_printf(const char *, ...)
+void	ft_printf(const char *format, ...)
 {
-	va_list args;
-	va_start(args, format);
+	va_list	args;
+	int		n;
+	char	*s;
+	int		i;
 
+	va_start(args, format);
+	n = va_arg(args, int);
+	s = ft_itoa(n);
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+		write(1, &s[i++], 1);
+	free(s);
 	va_end(args);
 }
