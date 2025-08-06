@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdarg.h>
-#include <unistd.h>
 
 static int	ft_intlen(int nb)
 {
@@ -60,15 +58,32 @@ void	ft_printf(const char *format, ...)
 	int		n;
 	char	*s;
 	int		i;
+	int		j;
 
 	va_start(args, format);
-	n = va_arg(args, int);
-	s = ft_itoa(n);
-	if (!s)
-		return ;
 	i = 0;
-	while (s[i])
-		write(1, &s[i++], 1);
-	free(s);
+	while (format[i])
+	{
+		if (format[i] == '%' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+		{
+			n = va_arg(args, int);
+			s = ft_itoa(n);
+			if (!s)
+				return ;
+			j = 0;
+			while (s[j])
+				write(1, &s[j++], 1);
+			free (s);
+			i += 2;
+			continue ;
+		}
+		write(1, &format[i], 1);
+		i++;
+	}
 	va_end(args);
+}
+int main(void)
+{
+	ft_printf("So A = %d va B = %d!\n", 42, -123);
+	return (0);
 }

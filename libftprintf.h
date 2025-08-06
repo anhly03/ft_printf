@@ -15,7 +15,11 @@
 
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdlib.h>
 
+void	ft_printstr(const char *format, ...);
 void	ft_printf(const char *, ...);
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
 
 #endif

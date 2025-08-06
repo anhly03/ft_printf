@@ -12,84 +12,90 @@
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c)
+static ft_intlen(int nbr)
 {
-	write(1, &c, 1);
+	int len;
+
+	len = 0;
+	if (nbr <= 0)
+		len = 1;
+	while (nbr)
+	{
+		nbr /= 10;
+		len++;
+	}
+	return (len);
 }
 
-// void	ft_printf(const char *format, ...)
-// {
-// 	va_list	args;
-// 	int		i;
-// 	char	c;
-
-// 	va_start(args, format);
-// 	i = 0;
-// 	while (format[i])
-// 	{
-// 		if (format[i] == '%' && format[i + 1] == 'c')
-// 		{
-// 			c = va_arg(args, int);
-// 			ft_putchar(c);
-// 			i += 2;
-// 		}
-// 		else
-// 		{
-// 			ft_putchar(format[i]);
-// 			i++;
-// 		}
-// 	}
-// 	va_end(args);
-// }
-
-
-
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_itoa(int n)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*str;
+	char	*s;
+	long	nb;
+	int		len;
 
-	s1_len = 0;
-	s2_len = 0;
-	if (!s1 || !s2)
+	nb = n;
+	len = ft_intlen(n);
+	s = malloc((len + 1) * sizeof(char));
+	if (!s)
 		return (NULL);
-	while (s1)
-		s1_len++;
-	while (s2)
-		s2_len++;
-	str = malloc (s1_len + s2_len + 1);
-	if (!str)
-		return (NULL);
-	
+	s[len - 1] = '\0';
+	if (nb < 0)
+	{
+		nb = -nb;
+		s[0] = '-';
+	}
+	if (nb == 0)
+		s[0] = '0';
+	while (nb > 10)
+	{
+		s[len--] = nb % 10 + '0';
+		nb /= 10;
+	}
+	return (s);
 }
 
-void	ft_printf(const char *format, ...)
+void	ft_printnumber(const char *format, ...)
 {
-	va_list	args;
+	va_list	arg;
 	int		i;
+	int		j;
+	int		n;
 	char	*s;
 
-	va_start(args, format);
-	s = va_arg(args, char *);
+	va_start(arg, format);
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%' && format[i + 1] == 's')
+		if (format[i] == '%' && format[i + 1] == 'd')
 		{
+			n = va_arg(arg, int);
+			s = ft_itoa(n);
+			if (!s)
+				return ;
+			j = 0;
+			while (s[i])
+				write(1, &s[j++], 1);
+			free (s);
 			i += 2;
+			continue ;
 		}
-		else
-		{
-			write(1, &format[i], 1);
-			i++;
-		}
+		write(1, &format[i], 1);
+		i++;
 	}
-	va_end(args);
+	va_end(arg);
 }
 
-int main()
+int	ft_printnumber(int n)
 {
-	ft_printf("Hello %s!\n", "world");
-	return 0;
+	char	*s;
+	int		i;
+
+	s = ft_itoa(n);
+	if (!s)
+		return (1);
+	i = 0;
+	while (s[i])
+		write(1, &s[i++], 1);
+	free (s);
+	return (i);
 }
