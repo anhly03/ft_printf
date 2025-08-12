@@ -13,20 +13,18 @@
 int	handle_conversation(char spec, va_list arg)
 {
 	if (spec == 's')
-		return (ft_printstr(va_arg(arg, char *)));
+		return (ft_printstr(va_arg(arg, char *))); //viet roi
 	else if (spec == 'c')
-		return (ft_printchar((char)va_arg(arg, int)));
+		return (ft_printchar((char)va_arg(arg, int)));//viet roi
 	else if (spec == 'p')
-		return (ft_printhex(va_arg(arg, void *)));
+		return (ft_printvoid(va_arg(arg, void *)));
 	else if (spec == 'd' || spec == 'i')
-		return (ft_printnumber(va_arg(arg, int)));
+		return (ft_printnumber(va_arg(arg, int))); //viet roi
 	else if (spec == 'u')
-		return (ft_printunsigned(va_arg(arg, unsigned int)));
-	else if (spec == 'x')
-		return (ft_printlow(va_arg(arg, unsigned int)));
-	else if (spec == 'X')
-		return (ft_print_upp(va_arg(arg, unsigned int)));
+		return (ft_printunsigned(va_arg(arg, unsigned int))); //viet roi
+	else if (spec == 'x' || spec == 'X')
+		return (ft_printhex(va_arg(arg, unsigned int)));
 	else if (spec == '%')
-		return (ft_printpercent());
+		return (ft_printpercent()); //viet roi
 	return (0);
 }

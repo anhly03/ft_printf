@@ -4,6 +4,7 @@ static int	ft_intlen(unsigned int n)
 {
 	int	len;
 
+	len = 0;
 	if (n == 0)
 		len = 1;
 	while (n)
@@ -44,7 +45,7 @@ int	ft_printunsigned(unsigned int n)
 
 	s = ft_utoa(n);
 	if (!s)
-		return ;
+		return (-1);
 	i = 0;
 	while (s[i])
 		write(1, &s[i++], 1);
