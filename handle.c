@@ -17,7 +17,7 @@ int	handle_conversation(char spec, va_list arg)
 	else if (spec == 'c')
 		return (ft_printchar((char)va_arg(arg, int)));//viet roi
 	else if (spec == 'p')
-		return (ft_printvoid(va_arg(arg, void *)));
+		return (ft_printvoid(va_arg(arg, void *))); //viet roi
 	else if (spec == 'd' || spec == 'i')
 		return (ft_printnumber(va_arg(arg, int))); //viet roi
 	else if (spec == 'u')
