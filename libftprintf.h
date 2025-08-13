@@ -6,20 +6,24 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:07:32 by phly              #+#    #+#             */
-/*   Updated: 2025/08/01 01:13:44 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/13 18:18:05 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
 
-void	ft_printstr(const char *format, ...);
-void	ft_printf(const char *, ...);
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
+int	ft_printchar(int c);
+int	ft_printhex(unsigned int n, char format);
+int	ft_printnumber(int n);
+int	ft_printpercent(void);
+int	ft_printstr(const char *s);
+int	ft_printunsigned(unsigned int n);
+int	ft_printvoid(void *ptr);
+int	ft_printf(const char *format, ...);
 
 #endif
