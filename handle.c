@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
+
 int	handle_conversation(char spec, va_list arg)
 {
 	if (spec == 's')
@@ -27,4 +29,33 @@ int	handle_conversation(char spec, va_list arg)
 	else if (spec == '%')
 		return (ft_printpercent()); //viet roi
 	return (0);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	arg;
+	int		len;
+	int		i;
+	char	spec;
+	char	c;
+
+	va_start(arg, format);
+	len = 0;
+	i = 0;
+	while(format[i])
+	{
+		if(format[i] == '%' && format[i + 1] == spec)
+		{
+			handle_conversation(spec, va_list arg);
+			len++;
+			i++;
+			continue ;
+		}
+		else if
+		{
+
+		}
+	}
+	va_end(arg);
+	return (len);
 }
