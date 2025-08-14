@@ -31,7 +31,6 @@ char	*ft_utoa(unsigned int n)
 {
 	int		len;
 	char	*s;
-	int		i;
 
 	len = ft_intlen(n);
 	s = malloc((len + 1) * sizeof(char));
@@ -40,7 +39,6 @@ char	*ft_utoa(unsigned int n)
 	s[len--] = '\0';
 	if (n == 0)
 		s[0] = '0';
-	i = 0;
 	while (n)
 	{
 		s[len--] = (n % 10) + '0';

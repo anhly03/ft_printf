@@ -13,7 +13,8 @@
 COMPILER = 	cc
 CFLAGS = 	-Wall -Wextra -Werror
 NAME = 		libftprintf.a
-SRCS =		test.c\
+SRCS =		ft_printchar.c ft_printhex.c ft_printnumber.c ft_printpercent.c\
+			ft_printstr.c ft_printunsigned.c ft_printvoid.c handle.c
 
 OBJS = $(SRCS:.c=.o)
 

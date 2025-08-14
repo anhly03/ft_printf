@@ -25,7 +25,7 @@ int	handle_conversation(char spec, va_list arg)
 	else if (spec == 'u')
 		return (ft_printunsigned(va_arg(arg, unsigned int)));
 	else if (spec == 'x' || spec == 'X')
-		return (ft_printhex(va_arg(arg, unsigned int)));
+		return (ft_printhex(va_arg(arg, unsigned int), spec));
 	else if (spec == '%')
 		return (ft_printpercent());
 	return (0);
@@ -36,31 +36,20 @@ int	ft_printf(const char *format, ...)
 	va_list	arg;
 	int		len;
 	int		i;
-	char	spec;
 
 	va_start(arg, format);
 	len = 0;
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && format[i + 1])
 		{
-			if (format[i + 1] == '\0')
-			{
-				write(1, '%', 1);
-				len++;
-				break ;
-			}
-			spec = format[i + 1];
-			len += handle_conversation(spec, arg);
+			len += handle_conversation(format[i + 1], arg);
 			i += 2;
 			continue ;
 		}
-		else
-		{
-			write(1, &format[i++], 1);
-			len++;
-		}
+		write(1, &format[i++], 1);
+		len++;
 	}
 	va_end(arg);
 	return (len);
