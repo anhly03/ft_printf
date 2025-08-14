@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 18:07:32 by phly              #+#    #+#             */
-/*   Updated: 2025/08/13 18:18:05 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/14 15:25:20 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <limits.h>
 
 int	ft_printchar(int c);
 int	ft_printhex(unsigned int n, char format);

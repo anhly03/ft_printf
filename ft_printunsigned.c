@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 17:40:40 by phly              #+#    #+#             */
-/*   Updated: 2025/08/13 18:08:39 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/14 13:28:32 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,14 @@ int	ft_printunsigned(unsigned int n)
 		return (-1);
 	i = 0;
 	while (s[i])
-		write(1, &s[i++], 1);
+	{
+		if (write(1, &s[i], 1) == -1)
+		{
+			free(s);
+			return (-1);
+		}
+		i++;
+	}
 	free (s);
 	return (i);
 }

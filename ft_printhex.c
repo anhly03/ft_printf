@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:07:03 by phly              #+#    #+#             */
-/*   Updated: 2025/08/13 18:04:45 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/14 15:34:28 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ int	ft_puthex(unsigned int n, char *base)
 {
 	int		len;
 	char	c;
+	int		temp;
 
 	len = ft_intlen_hex(n);
 	if (n >= 16)
-		ft_puthex(n / 16, base);
+	{
+		temp = ft_puthex(n / 16, base);
+		if (temp == -1)
+			return (-1);
+	}
 	c = base[n % 16];
-	write (1, &c, 1);
+	if (write (1, &c, 1) == -1)
+		return (-1);
 	return (len);
 }
 
@@ -44,6 +50,7 @@ int	ft_printhex(unsigned int n, char format)
 {
 	char	*base;
 	int		len;
+	int		temp;
 
 	len = ft_intlen_hex(n);
 	if (format == 'x')
@@ -52,7 +59,9 @@ int	ft_printhex(unsigned int n, char format)
 		base = "0123456789ABCDEF";
 	else
 		return (0);
-	ft_puthex(n, base);
+	temp = ft_puthex(n, base);
+	if (temp == -1)
+		return (-1);
 	return (len);
 }
 

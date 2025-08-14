@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:06:25 by phly              #+#    #+#             */
-/*   Updated: 2025/08/13 18:08:48 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/14 15:13:25 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ int	ft_putvoid(unsigned long n, char *base)
 {
 	int		len;
 	char	c;
+	int		temp;
 
 	len = ft_intlen_pointer(n);
 	if (n >= 16)
-		ft_putvoid(n / 16, base);
+	{
+		temp = ft_putvoid(n / 16, base);
+		if (temp == -1)
+			return (-1);
+	}
 	c = base[n % 16];
-	write(1, &c, 1);
+	if (write(1, &c, 1) == -1)
+		return (-1);
 	return (len);
 }
 
@@ -45,19 +51,21 @@ int	ft_printvoid(void *ptr)
 	unsigned long	addr;
 	int				len;
 	char			*base;
+	int				temp;
 
 	addr = (unsigned long)ptr;
 	len = ft_intlen_pointer(addr);
 	base = "0123456789abcdef";
 	if (addr == 0)
 	{
-		write(1, "0x0", 3);
+		if (write(1, "0x0", 3) == -1)
+			return (-1);
 		return (3);
 	}
-	else
-	{
-		write(1, "0x", 2);
-		ft_putvoid(addr, base);
-		return (len + 2);
-	}
+	if (write(1, "0x", 2) == -1)
+		return (-1);
+	temp = ft_putvoid(addr, base);
+	if (temp == -1)
+		return (-1);
+	return (len + 2);
 }

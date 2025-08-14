@@ -6,7 +6,7 @@
 /*   By: phly <phly@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 17:40:34 by phly              #+#    #+#             */
-/*   Updated: 2025/08/13 18:11:00 by phly             ###   ########.fr       */
+/*   Updated: 2025/08/14 15:05:32 by phly             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 int	ft_printstr(const char *s)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!s)
 	{
-		write(1, "(null)", 6);
+		if (write(1, "(null)", 6) == -1)
+			return (-1);
 		return (6);
 	}
 	while (s[i])
-		write(1, &s[i++], 1);
+	{
+		if (write(1, &s[i], 1) == -1)
+			return (-1);
+		i++;
+	}
 	return (i);
 }
