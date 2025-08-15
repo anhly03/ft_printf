@@ -31,33 +31,61 @@ int	handle_conversation(char spec, va_list arg)
 	return (0);
 }
 
+// int	ft_printf(const char *format, ...)
+// {
+// 	va_list	arg;
+// 	int		len;
+// 	int		i;
+// 	int		temp;
+
+// 	va_start(arg, format);
+// 	len = 0;
+// 	i = 0;
+// 	temp = 0;
+// 	while (format[i])
+// 	{
+// 		if (format[i] == '%' && format[i + 1])
+// 		{
+// 			temp = handle_conversation(format[i + 1], arg);
+// 			if (temp == -1)
+// 				return (-1);
+// 			len += temp;
+// 			i += 2;
+// 			continue ;
+// 		}
+// 		if (write(1, &format[i], 1) == -1)
+// 		{
+// 			va_end(arg);
+// 			return (-1);
+// 		}
+// 		i++;
+// 		len++;
+// 	}
+// 	va_end(arg);
+// 	return (len);
+// }
+
 int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
 	int		len;
 	int		i;
-	int		temp;
 
 	va_start(arg, format);
 	len = 0;
 	i = 0;
-	temp = 0;
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1])
 		{
-			temp = handle_conversation(format[i + 1], arg);
-			if (temp == -1)
-				return (-1);
-			len += temp;
+			if (handle_conversation(format[i + 1], arg) == -1)
+				return (va_end(arg), -1);
+			len += handle_conversation(format[i + 1], arg);
 			i += 2;
 			continue ;
 		}
 		if (write(1, &format[i], 1) == -1)
-		{
-			va_end(arg);
-			return (-1);
-		}
+			return (va_end(arg), -1);
 		i++;
 		len++;
 	}
