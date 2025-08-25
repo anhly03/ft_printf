@@ -56,11 +56,11 @@ int	ft_printvoid(void *ptr)
 	addr = (unsigned long)ptr;
 	len = ft_intlen_pointer(addr);
 	base = "0123456789abcdef";
-	if (addr == 0)
+	if (!addr)
 	{
-		if (write(1, "0x0", 3) == -1)
+		if (write(1, "(nil)", 5) == -1)
 			return (-1);
-		return (3);
+		return (5);
 	}
 	if (write(1, "0x", 2) == -1)
 		return (-1);
